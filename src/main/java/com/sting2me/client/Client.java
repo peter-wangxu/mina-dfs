@@ -9,7 +9,10 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.SocketConnector;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 
 /**
@@ -43,10 +46,10 @@ public class Client {
         String filepath = "/home/peter/Downloads/apache-tomcat-7.0.56.tar.gz";
         File file = new File(filepath);
         File file2 = new File("/home/peter/Downloads/apache-mina-2.0.9-bin.zip");
-        if(file.exists()) {
-            byte[] fileBytes = new byte[(int)file.length()];
-            byte[] file2Bytes = new byte[(int)file2.length()];
-             try {
+        if (file.exists()) {
+            byte[] fileBytes = new byte[(int) file.length()];
+            byte[] file2Bytes = new byte[(int) file2.length()];
+            try {
                 FileInputStream inputStream = new FileInputStream(file);
                 FileInputStream inputStream2 = new FileInputStream(file2);
                 inputStream.read(fileBytes);

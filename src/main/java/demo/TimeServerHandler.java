@@ -27,23 +27,23 @@ public class TimeServerHandler implements IoHandler {
 
     @Override
     public void sessionIdle(IoSession session, IdleStatus idleStatus) throws Exception {
-        System.out.println( "IDLE " + session.getIdleCount( idleStatus ));
+        System.out.println("IDLE " + session.getIdleCount(idleStatus));
     }
 
     @Override
     public void exceptionCaught(IoSession ioSession, Throwable throwable) throws Exception {
-            throwable.printStackTrace();
+        throwable.printStackTrace();
     }
 
     @Override
     public void messageReceived(IoSession session, Object o) throws Exception {
         String str = o.toString();
-        if( str.trim().equalsIgnoreCase("quit") ) {
+        if (str.trim().equalsIgnoreCase("quit")) {
             session.close(false);
             return;
         }
         Date date = new Date();
-        session.write( date.toString() );
+        session.write(date.toString());
         System.out.println("Message written...");
     }
 

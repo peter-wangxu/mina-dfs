@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
 /**
  * Created by peter on 14-12-7.
  */
-public class FileRequest extends FilenameFileRegion{
+public class FileRequest extends FilenameFileRegion {
     String message;
 
     public FileRequest(File file, FileChannel channel) throws IOException {

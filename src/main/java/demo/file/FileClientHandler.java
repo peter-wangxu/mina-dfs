@@ -10,8 +10,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by peter on 14-12-7.
  */
-public class FileClientHandler  extends IoHandlerAdapter {
+public class FileClientHandler extends IoHandlerAdapter {
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void sessionCreated(IoSession session) throws Exception {
         super.sessionCreated(session);
@@ -52,8 +53,7 @@ public class FileClientHandler  extends IoHandlerAdapter {
             logger.info("is FileRegion");
             FileRegion region = (FileRegion) message;
             //region.getFileChannel().close();
-        }
-        else {
+        } else {
             logger.info("not FileRegion");
         }
     }

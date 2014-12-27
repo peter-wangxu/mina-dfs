@@ -6,7 +6,6 @@ import java.util.Map;
  * Created by peter on 14-12-5.
  * structure used by data node
  * every interval of time, data node will report status of self to name node
- *
  */
 public class HeartbeatRequest {
     private String ip;

@@ -3,7 +3,7 @@ package com.sting2me.common.entity;
 /**
  * Created by peter on 14-12-6.
  */
-public class AudioRequest extends MultimediaRequest{
+public class AudioRequest extends MultimediaRequest {
     //audio length
     private double audioLength;
     // place audioLength in file name

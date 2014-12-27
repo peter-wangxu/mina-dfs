@@ -13,13 +13,11 @@ import org.slf4j.LoggerFactory;
  * this is used by DataServer to decode the request from client
  */
 public class MultimediaRequestDecoder extends CumulativeProtocolDecoder {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
     //support image size not larger than 20M
     public static final int MAX_IMAGE_SIZE = 9 * 1024 * 1024;
     private static final String DECODER_STATE_KEY = MultimediaRequestDecoder.class.getName() + ".STATE";
-    private static class DecoderState {
-        boolean fileReceived = false;
-    }
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
         logger.debug("DataServer: decoding the multimedia request.");
@@ -30,13 +28,13 @@ public class MultimediaRequestDecoder extends CumulativeProtocolDecoder {
             session.setAttribute(DECODER_STATE_KEY, decoderState);
         }
         logger.debug("Remain out: {}", in.remaining());
-        if(in.prefixedDataAvailable(4, MAX_IMAGE_SIZE)) {
+        if (in.prefixedDataAvailable(4, MAX_IMAGE_SIZE)) {
             logger.info("Remain: {}", in.remaining());
             int length = in.getInt();
-            byte [] data = new byte[length];
+            byte[] data = new byte[length];
             in.get(data);
             int suffixLength = in.getInt();
-            byte [] suffix = new byte[suffixLength];
+            byte[] suffix = new byte[suffixLength];
             in.get(suffix);
             MultimediaRequest request = new MultimediaRequest();
             request.setFileData(data);
@@ -47,5 +45,9 @@ public class MultimediaRequestDecoder extends CumulativeProtocolDecoder {
 
         // return false as not enough data
         return false;
+    }
+
+    private static class DecoderState {
+        boolean fileReceived = false;
     }
 }

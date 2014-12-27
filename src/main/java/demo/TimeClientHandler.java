@@ -15,6 +15,6 @@ class TimeClientHandler extends IoHandlerAdapter {
             session.close(true);// 结束会话
             return;
         }
-        System.out.println("收到服务端发来的消息："+message);// 显示接收到的消息
+        System.out.println("收到服务端发来的消息：" + message);// 显示接收到的消息
     }
 }

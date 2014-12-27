@@ -17,16 +17,12 @@ import java.io.IOException;
  */
 public class ImageResponseDecoder extends CumulativeProtocolDecoder {
 
+    public static final int MAX_IMAGE_SIZE = 5 * 1024 * 1024;
     private static final String DECODER_STATE_KEY = ImageResponseDecoder.class.getName() + ".STATE";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public static final int MAX_IMAGE_SIZE = 5 * 1024 * 1024;
-
-    private static class DecoderState {
-        BufferedImage image1;
-    }
 
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
-        logger.debug("Begin to decode for client" );
+        logger.debug("Begin to decode for client");
         DecoderState decoderState = (DecoderState) session.getAttribute(DECODER_STATE_KEY);
         if (decoderState == null) {
             decoderState = new DecoderState();
@@ -63,5 +59,9 @@ public class ImageResponseDecoder extends CumulativeProtocolDecoder {
         in.get(bytes);
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         return ImageIO.read(bais);
+    }
+
+    private static class DecoderState {
+        BufferedImage image1;
     }
 }

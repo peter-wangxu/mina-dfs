@@ -13,10 +13,8 @@ import java.awt.image.BufferedImage;
  */
 public class ImageServerIoHandler extends IoHandlerAdapter {
 
-    private final static String characters = "mina rocks abcdefghijklmnopqrstuvwxyz0123456789";
-
     public static final String INDEX_KEY = ImageServerIoHandler.class.getName() + ".INDEX";
-
+    private final static String characters = "mina rocks abcdefghijklmnopqrstuvwxyz0123456789";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public void sessionOpened(IoSession session) throws Exception {

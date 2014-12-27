@@ -5,6 +5,12 @@ package com.sting2me.common.util;
  */
 public class CommandResult {
     int result;
+    String output;
+
+    public CommandResult(int r, String o) {
+        this.result = r;
+        this.output = o;
+    }
 
     public String getOutput() {
         return output;
@@ -14,11 +20,6 @@ public class CommandResult {
         this.output = output;
     }
 
-    String output;
-    public CommandResult(int r, String o) {
-        this.result = r;
-        this.output = o;
-    }
     public int getResult() {
         return result;
     }

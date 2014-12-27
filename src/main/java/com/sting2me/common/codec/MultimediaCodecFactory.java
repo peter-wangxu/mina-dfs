@@ -1,13 +1,5 @@
 package com.sting2me.common.codec;
 
-import com.sting2me.common.codec.MultimediaRequestDecoder;
-import com.sting2me.common.codec.MultimediaRequestEncoder;
-import com.sting2me.common.codec.MultimediaResponseDecoder;
-import com.sting2me.common.codec.MultimediaResponseEncoder;
-import demo.image_process.ImageRequestDecoder;
-import demo.image_process.ImageRequestEncoder;
-import demo.image_process.ImageResponseDecoder;
-import demo.image_process.ImageResponseEncoder;
 import org.apache.mina.core.session.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolDecoder;

@@ -19,6 +19,7 @@ public class PathGenerator {
     private static double D_LEVEL_3 = LEVEL_3;
     private static int LEVEL_3_TOTAL = LEVEL_1 * LEVEL_2 * LEVEL_3;
     private static int totalFolder = LEVEL_1 * LEVEL_2 * LEVEL_3 + LEVEL_1 * LEVEL_2 + LEVEL_1;
+
     public static String getPath() {
         String uuid = UUID.randomUUID().toString();
         StringBuffer buff = new StringBuffer();
@@ -26,6 +27,7 @@ public class PathGenerator {
         buff.append(getRandomizePath());
         return buff.toString();
     }
+
     //for image
     public static String getPath(int width, int height) {
         String uuid = UUID.randomUUID().toString();
@@ -36,6 +38,7 @@ public class PathGenerator {
         buff.append("_w" + width + "_h" + height);
         return buff.toString();
     }
+
     // for audio/video
     public static String getPath(int length) {
         String uuid = UUID.randomUUID().toString();
@@ -46,6 +49,7 @@ public class PathGenerator {
         buff.append("_l" + length);
         return buff.toString();
     }
+
     //for video
     public static String getPath(int width, int height, int length) {
         String uuid = UUID.randomUUID().toString();
@@ -62,7 +66,7 @@ public class PathGenerator {
     }
 
     private static String getRandomizePath() {
-        Random r  = new Random();
+        Random r = new Random();
         int seed = r.nextInt(totalFolder);
         seed += 1;
         System.out.println("seed:" + seed);
@@ -71,22 +75,22 @@ public class PathGenerator {
         if (seed <= LEVEL_1) {// fall in L1
             sb.append(seed);
         } else if (seed <= LEVEL_2_TOTAL + LEVEL_1) { //fall in L2
-            sb.append(Math.ceil((seed - LEVEL_1) / D_LEVEL_2) );
+            sb.append(Math.ceil((seed - LEVEL_1) / D_LEVEL_2));
             sb.append("/");
             int n = (seed - LEVEL_1) % LEVEL_2;
             if (n == 0)
                 sb.append(LEVEL_2);
             else sb.append(n);
         } else { //fall in L3
-            int l3 = (seed - LEVEL_2_TOTAL- LEVEL_1) % LEVEL_3  ;
-            if(l3 == 0 )
+            int l3 = (seed - LEVEL_2_TOTAL - LEVEL_1) % LEVEL_3;
+            if (l3 == 0)
                 l3 = LEVEL_3;
 
-            double l2 = Math.ceil((seed - LEVEL_2_TOTAL- LEVEL_1) / D_LEVEL_3 ) % LEVEL_2;
-            if(l2 == 0)
+            double l2 = Math.ceil((seed - LEVEL_2_TOTAL - LEVEL_1) / D_LEVEL_3) % LEVEL_2;
+            if (l2 == 0)
                 l2 = LEVEL_2;
             double l1 = Math.ceil((seed - LEVEL_2_TOTAL - LEVEL_1) / D_LEVEL_3 / D_LEVEL_2) % LEVEL_1;
-            if(l1 == 0)
+            if (l1 == 0)
                 l1 = LEVEL_1;
             sb.append(l1);
             sb.append("/");

@@ -13,11 +13,12 @@ import org.slf4j.LoggerFactory;
  */
 public class MultimediaResponseEncoder implements ProtocolEncoder {
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
         logger.debug("DataServer: encoding multimedia response");
         MultimediaResponse response = (MultimediaResponse) message;
-        byte [] path = response.getFullPath().getBytes();
+        byte[] path = response.getFullPath().getBytes();
         IoBuffer buffer = IoBuffer.allocate(path.length + 4);
         buffer.putInt(path.length);
         buffer.put(path);

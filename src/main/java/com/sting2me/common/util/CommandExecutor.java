@@ -18,6 +18,7 @@ public class CommandExecutor {
 
     /**
      * add support for command with redirect pipe line |
+     *
      * @param append
      * @return
      */
@@ -35,13 +36,14 @@ public class CommandExecutor {
             return new CommandResult(n, getOutput(process, (n != 0)));
         } catch (IOException e) {
             //e.printStackTrace();
-            logger.error("Execute [{}] errors : [{}]",commands.toString(), e.getMessage());
+            logger.error("Execute [{}] errors : [{}]", commands.toString(), e.getMessage());
         } catch (InterruptedException e) {
-            logger.error("Execute [{}] interrupted : [{}]",commands.toString(), e.getMessage());
+            logger.error("Execute [{}] interrupted : [{}]", commands.toString(), e.getMessage());
             //e.printStackTrace();
         }
         return null;
     }
+
     public static CommandResult execute(String[] params) {
         List<String> commands = new ArrayList<String>();
         for (String s : params) {
@@ -54,25 +56,24 @@ public class CommandExecutor {
         try {
             Process process = Runtime.getRuntime().exec(cmdLine);
             int n = process.waitFor();
-            return new CommandResult(n,getOutput(process, (n != 0)));
+            return new CommandResult(n, getOutput(process, (n != 0)));
         } catch (IOException e) {
             //e.printStackTrace();
-            logger.error("Execute [{}] errors : [{}]",cmdLine, e.getMessage());
+            logger.error("Execute [{}] errors : [{}]", cmdLine, e.getMessage());
         } catch (InterruptedException e) {
             //e.printStackTrace();
-            logger.error("Execute [{}] interrupted : [{}]",cmdLine, e.getMessage());
+            logger.error("Execute [{}] interrupted : [{}]", cmdLine, e.getMessage());
         }
         return null;
     }
 
     /**
-     *
      * @param process
      * @return
      */
     private static String getOutput(Process process, boolean isError) {
         BufferedReader input = null;
-        if(isError) {
+        if (isError) {
             input = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         } else {
             input = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -101,10 +102,10 @@ public class CommandExecutor {
 
     public static void main(String[] args) {
         //execute("ps -ef");
-        String [] cmds = new String [1];
+        String[] cmds = new String[1];
         cmds[0] = "ps -ef | grep watchdog";
 
-        execute(new String[] {"netstat", "-ntlp", "|", "grep", "7777"});
+        execute(new String[]{"netstat", "-ntlp", "|", "grep", "7777"});
         System.out.println("====================================================");
         execute("sh -c \\\"netstat -ntlp | grep 7777\\\"");
         execute("mkdir -p /tmp/peter/test");

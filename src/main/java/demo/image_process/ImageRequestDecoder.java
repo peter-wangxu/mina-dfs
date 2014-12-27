@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ImageRequestDecoder extends CumulativeProtocolDecoder {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
         logger.debug("Server: begin to decode request");
         if (in.remaining() >= 12) {

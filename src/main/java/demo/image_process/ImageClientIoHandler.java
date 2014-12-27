@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ImageClientIoHandler extends IoHandlerAdapter {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public void messageReceived(IoSession session, Object message) throws Exception {
         logger.debug("Client: message received");
         MultimediaResponse response = (MultimediaResponse) message;

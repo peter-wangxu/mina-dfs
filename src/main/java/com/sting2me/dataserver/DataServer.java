@@ -13,8 +13,8 @@ import java.net.InetSocketAddress;
  * Created by peter on 14-12-6.
  */
 public class DataServer {
-    private static Logger logger = LoggerFactory.getLogger(DataServer.class);
     public static final int PORT = 33789;
+    private static Logger logger = LoggerFactory.getLogger(DataServer.class);
 
     public static void main(String[] args) throws IOException {
         DataServerIoHandler handler = new DataServerIoHandler();

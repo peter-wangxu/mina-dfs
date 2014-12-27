@@ -15,18 +15,19 @@ public class FileRequestDecoder extends CumulativeProtocolDecoder {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private int MAX_LENGTH = 10 * 1024 * 1024;
+
     @Override
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
         int remain = in.remaining();
         Object o = session.getAttribute("COUNT");
-        if(null == o ) {
+        if (null == o) {
             session.setAttribute("COUNT", remain);
         } else {
-            Integer i = (Integer)session.getAttribute("COUNT");
+            Integer i = (Integer) session.getAttribute("COUNT");
             session.setAttribute("COUNT", i + remain);
         }
         logger.info("count :{}", session.getAttribute("COUNT"));
-        if(in.prefixedDataAvailable(4, MAX_LENGTH)) {
+        if (in.prefixedDataAvailable(4, MAX_LENGTH)) {
             byte data[] = new byte[in.remaining()];
             in.get(data);
             out.write(data);

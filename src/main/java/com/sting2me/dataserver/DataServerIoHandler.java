@@ -31,11 +31,11 @@ public class DataServerIoHandler extends IoHandlerAdapter {
         logger.info("DataServer: length {}, ext {}", req.getFileData().length, req.getFileExtension());
         String storPath = PathGenerator.getPath();
         File dstFile = new File(storPath);
-        if(!dstFile.exists()) {
+        if (!dstFile.exists()) {
             logger.debug("Creating directory:" + storPath);
             dstFile.mkdirs();
         }
-        dstFile = new File(storPath + UUID.randomUUID().toString() + "." +req.getFileExtension());
+        dstFile = new File(storPath + UUID.randomUUID().toString() + "." + req.getFileExtension());
         FileOutputStream outFile = new FileOutputStream(dstFile);
         outFile.write(req.getFileData());
         outFile.close();

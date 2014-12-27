@@ -1,10 +1,8 @@
 package com.sting2me.dataserver;
 
-import com.sting2me.client.ClientIoHandler;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.session.IoSession;
-import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.SocketConnector;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
@@ -19,12 +17,13 @@ import java.util.TimerTask;
  * Created by peter on 14-12-15.
  */
 public class StatisticReporter {
-    public  final static long REPORT_PERIOD= 15*1000;
-    private IoSession session  = null;
+    public final static long REPORT_PERIOD = 15 * 1000;
+    private IoSession session = null;
     private String host = "127.0.0.1";
     private int port = 9931;
+
     public IoSession reconnect() {
-        if(this.session != null) {
+        if (this.session != null) {
             if (false == this.session.isConnected()) {
                 this.session = this.connect(this.host, this.port);
                 return this.session;
@@ -37,6 +36,7 @@ public class StatisticReporter {
         return this.session;
 
     }
+
     public IoSession connect(String host, int port) {
         SocketConnector connector;
         // 创建一个socket连接
@@ -55,10 +55,11 @@ public class StatisticReporter {
         future.awaitUninterruptibly();
         return future.getSession();
     }
+
     public void start() {
         //initialize connection with name server
         this.session = this.connect(host, port);
-        Timer periodTimer =  new Timer("DataServerReport", true);
+        Timer periodTimer = new Timer("DataServerReport", true);
         periodTimer.schedule(new ReportTask(this.session, this), new Date(), REPORT_PERIOD);
     }
 }
@@ -66,20 +67,23 @@ public class StatisticReporter {
 class FakeStatistic {
 
 }
+
 class ReportTask extends TimerTask {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private IoSession session;
     private StatisticReporter report;
+
     public ReportTask(IoSession session, StatisticReporter report) {
         this.session = session;
         this.report = report;
     }
+
     @Override
     public void run() {
         //collect data and report to Name Server periodically
         try {
             session.write(new FakeStatistic());
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             //TODO need to sleep some time here?
             logger.warn("Trying to reconnect to data server...");
             this.session = this.report.reconnect();

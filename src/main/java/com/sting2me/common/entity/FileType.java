@@ -9,11 +9,11 @@ public enum FileType {
     VideoFile("Video"),
     TextFile("Text"),
     Any("Any");
+    private String typeName;
 
     private FileType(String typeName) {
         this.typeName = typeName;
     }
-    private String typeName;
 
     public String getTypeName() {
         return typeName;

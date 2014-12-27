@@ -9,8 +9,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by peter on 14-12-7.
  */
-public class FileServerHandler extends IoHandlerAdapter{
+public class FileServerHandler extends IoHandlerAdapter {
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void sessionCreated(IoSession session) throws Exception {
         super.sessionCreated(session);

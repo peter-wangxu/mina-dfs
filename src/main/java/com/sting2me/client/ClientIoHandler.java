@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ClientIoHandler extends IoHandlerAdapter {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void sessionCreated(IoSession session) throws Exception {
         super.sessionCreated(session);

@@ -15,12 +15,13 @@ import org.slf4j.LoggerFactory;
 public class MultimediaRequestEncoder implements ProtocolEncoder {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Override
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
         logger.debug("Client: encoding the multimedia request.");
         MultimediaRequest request = (MultimediaRequest) message;
-        byte [] data = request.getFileData();
-        byte [] name = request.getFileExtension().getBytes();
+        byte[] data = request.getFileData();
+        byte[] name = request.getFileExtension().getBytes();
         IoBuffer ioBuffer = IoBuffer.allocate(data.length + 4 + name.length + 4, false);
         ioBuffer.setAutoExpand(true);
         ioBuffer.putInt(data.length);

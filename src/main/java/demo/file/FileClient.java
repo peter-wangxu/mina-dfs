@@ -1,8 +1,5 @@
 package demo.file;
 
-import demo.image_process.ImageClientIoHandler;
-import demo.image_process.ImageCodecFactory;
-import demo.image_process.ImageRequest;
 import org.apache.mina.core.file.FilenameFileRegion;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.future.ConnectFuture;
@@ -14,7 +11,10 @@ import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.channels.FileChannel;
 
@@ -24,6 +24,7 @@ import java.nio.channels.FileChannel;
 public class FileClient {
     private static final int PORT = 9123;
     private static Logger logger = LoggerFactory.getLogger(FileClient.class);
+
     public static void main(String[] args) {
 
         String host = "127.0.0.1";
@@ -59,9 +60,9 @@ public class FileClient {
             len = fis.available();
             channel = fis.getChannel();
             logger.info("totalSpace:" + len);
-            region1= new FilenameFileRegion(file, channel, 0, len/2);
+            region1 = new FilenameFileRegion(file, channel, 0, len / 2);
             session.write(region1);
-            region2 = new FilenameFileRegion(file, channel, len/2, len);
+            region2 = new FilenameFileRegion(file, channel, len / 2, len);
             session.write(region2);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

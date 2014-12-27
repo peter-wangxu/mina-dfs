@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by peter on 14-12-7.
  */
-public class FileRequestEncoder  implements ProtocolEncoder{
+public class FileRequestEncoder implements ProtocolEncoder {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
@@ -20,6 +20,7 @@ public class FileRequestEncoder  implements ProtocolEncoder{
         //IoBuffer buffer = this.getNextBuffer(region);
         out.write(message);
     }
+
     @Override
     public void dispose(IoSession session) throws Exception {
 

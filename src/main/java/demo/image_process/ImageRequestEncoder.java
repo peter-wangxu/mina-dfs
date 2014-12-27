@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 public class ImageRequestEncoder implements ProtocolEncoder {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public void encode(IoSession session, Object message, ProtocolEncoderOutput out) throws Exception {
         logger.debug("Client: begin to encode request");
         ImageRequest request = (ImageRequest) message;

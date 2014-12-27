@@ -15,7 +15,7 @@ public class MyFactory implements ProtocolCodecFactory {
     private ProtocolDecoder decoder;
 
     public MyFactory(boolean client) {
-        if(client) {
+        if (client) {
             this.decoder = new TextLineDecoder();
             this.encoder = new FileRequestEncoder();
         } else {
@@ -23,6 +23,7 @@ public class MyFactory implements ProtocolCodecFactory {
             this.encoder = new TextLineEncoder();
         }
     }
+
     public MyFactory(ProtocolEncoder encoder, ProtocolDecoder decoder) {
         this.encoder = encoder;
         this.decoder = decoder;
