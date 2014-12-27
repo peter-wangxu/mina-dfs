@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.UUID;
 
 /**
  * Created by peter on 14-12-6.
@@ -28,14 +29,20 @@ public class DataServerIoHandler extends IoHandlerAdapter {
         logger.info("DataServer: messageReceived, sessionid {}", session.getId());
         MultimediaRequest req = (MultimediaRequest) message;
         logger.info("DataServer: length {}, ext {}", req.getFileData().length, req.getFileExtension());
-        File dstFile = new File("/tmp/test." + req.getFileExtension());
+        String storPath = PathGenerator.getPath();
+        File dstFile = new File(storPath);
+        if(!dstFile.exists()) {
+            logger.debug("Creating directory:" + storPath);
+            dstFile.mkdirs();
+        }
+        dstFile = new File(storPath + UUID.randomUUID().toString() + "." +req.getFileExtension());
         FileOutputStream outFile = new FileOutputStream(dstFile);
         outFile.write(req.getFileData());
         outFile.close();
         if (dstFile.exists()) {
             logger.info("DataServer: file write successfully {}", dstFile.getPath());
             MultimediaResponse res = new MultimediaResponse();
-            res.setFullPath("/tmp/test." + req.getFileExtension());
+            res.setFullPath(dstFile.getPath());
             session.write(res);
         }
 

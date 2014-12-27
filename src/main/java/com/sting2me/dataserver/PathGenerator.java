@@ -9,6 +9,7 @@ import java.util.UUID;
 public class PathGenerator {
     private static int MAX_FOLDER_LEVEL = 3;
     //TODO These value should come from config file
+    private static String ROOT_DEVICE = "/tmp/";
     private static int LEVEL_1 = 100;
     private static double D_LEVEL_1 = LEVEL_1;
     private static int LEVEL_2 = 100;
@@ -19,31 +20,51 @@ public class PathGenerator {
     private static int LEVEL_3_TOTAL = LEVEL_1 * LEVEL_2 * LEVEL_3;
     private static int totalFolder = LEVEL_1 * LEVEL_2 * LEVEL_3 + LEVEL_1 * LEVEL_2 + LEVEL_1;
     public static String getPath() {
-
-        return null;
+        String uuid = UUID.randomUUID().toString();
+        StringBuffer buff = new StringBuffer();
+        buff.append(ROOT_DEVICE);
+        buff.append(getRandomizePath());
+        return buff.toString();
     }
     //for image
     public static String getPath(int width, int height) {
-        return null;
+        String uuid = UUID.randomUUID().toString();
+        StringBuffer buff = new StringBuffer();
+        buff.append(ROOT_DEVICE);
+        buff.append(getRandomizePath());
+        buff.append(uuid);
+        buff.append("_w" + width + "_h" + height);
+        return buff.toString();
     }
     // for audio/video
     public static String getPath(int length) {
-        return null;
+        String uuid = UUID.randomUUID().toString();
+        StringBuffer buff = new StringBuffer();
+        buff.append(ROOT_DEVICE);
+        buff.append(getRandomizePath());
+        buff.append(uuid);
+        buff.append("_l" + length);
+        return buff.toString();
     }
     //for video
     public static String getPath(int width, int height, int length) {
-        return null;
+        String uuid = UUID.randomUUID().toString();
+        StringBuffer buff = new StringBuffer();
+        buff.append(ROOT_DEVICE);
+        buff.append(getRandomizePath());
+        buff.append(uuid);
+        buff.append("_w" + width + "_h" + height + "_l" + length);
+        return buff.toString();
     }
 
     public static String getUUID() {
         return UUID.randomUUID().toString();
     }
 
-    public static String getRandomizePath() {
+    private static String getRandomizePath() {
         Random r  = new Random();
         int seed = r.nextInt(totalFolder);
         seed += 1;
-        seed  = 110099;
         System.out.println("seed:" + seed);
         StringBuffer sb = new StringBuffer();
         sb.append("/");
