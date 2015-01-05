@@ -4,6 +4,7 @@ import org.apache.mina.core.service.IoHandlerAdapter;
 import org.apache.mina.core.session.IoSession;
 
 /**
+ * Interact with Name Server to report data server statistics
  * Created by peter on 14-12-17.
  */
 public class StatisticIoHandler extends IoHandlerAdapter {

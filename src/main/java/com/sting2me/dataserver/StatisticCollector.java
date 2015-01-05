@@ -19,13 +19,6 @@ public class StatisticCollector {
     private final String DF_ALL = "df --output=source,pcent,ipcent";
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public static void main(String[] args) {
-        StatisticCollector s = new StatisticCollector();
-        s.getDiskUsage("/dev/sda9");
-        s.getInodeUsage("/dev/sda9");
-        s.getAll("/dev/sda9");
-    }
-
     public Map<String, Double> getDiskUsage(final String partition) {
         CommandResult cr = CommandExecutor.execute(DF_USAGE + " " + partition);
         String output = cr.getOutput();
@@ -61,5 +54,14 @@ public class StatisticCollector {
             data.put(partition, new Double[]{new Double(m.group(1)), new Double(m.group(2))});
         }
         return data;
+    }
+    public static void main(String[] args) {
+        StatisticCollector s = new StatisticCollector();
+        System.out.println(s.getDiskUsage("/dev/sda9"));
+        System.out.println(s.getInodeUsage("/dev/sda9"));
+        Double[] data = s.getAll("/dev/sda9").get("/dev/sda9");
+        for (double d: data) {
+        	System.out.println("percentage:" + d);
+        }
     }
 }

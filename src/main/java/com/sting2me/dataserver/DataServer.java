@@ -25,5 +25,7 @@ public class DataServer {
         acceptor.bind();
         logger.info("DataServer is listening at port " + PORT);
         //start Data Client to report statistics to Name Server
+        StatisticReporter reporter = new StatisticReporter();
+        reporter.start();
     }
 }

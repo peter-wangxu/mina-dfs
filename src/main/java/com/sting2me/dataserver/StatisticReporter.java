@@ -14,9 +14,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
+ * This class will report data server statistics to name server periodically
  * Created by peter on 14-12-15.
  */
 public class StatisticReporter {
+	//TODO This should be loaded from config file
     public final static long REPORT_PERIOD = 15 * 1000;
     private IoSession session = null;
     private String host = "127.0.0.1";

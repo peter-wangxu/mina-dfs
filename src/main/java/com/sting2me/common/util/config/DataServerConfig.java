@@ -9,10 +9,11 @@ package com.sting2me.common.util.config;
  */
 public class DataServerConfig implements IConfig {
 
-	private String 	nameServerIp;
-	private String 	backupServerIp;
-	private int		reportInterval;
-	private String 	domain;
+	private String 		nameServerIp;
+	private String 		backupServerIp;
+	private int			reportInterval;
+	private String 		domain;
+	private String[] 	partitions;
 	public String getDomain() {
 		return domain;
 	}
@@ -36,6 +37,12 @@ public class DataServerConfig implements IConfig {
 	}
 	public void setReportInterval(int reportInterval) {
 		this.reportInterval = reportInterval;
+	}
+	public String[] getPartitions() {
+		return partitions;
+	}
+	public void setPartitions(String[] partitions) {
+		this.partitions = partitions;
 	}
 	
 	

@@ -8,7 +8,9 @@ import java.util.Map;
  * every interval of time, data node will report status of self to name node
  */
 public class HeartbeatRequest {
+	//IP of data server
     private String ip;
+    // data server host name
     private String hostName;
     // structure like below  "/dev/sdb1": 95.6, "/dev/sdc1": 60.0
     private Map<String, Double> diskUsage;
@@ -16,4 +18,35 @@ public class HeartbeatRequest {
     private Map<String, Double> inodeUsage;
     // true if there is a backup server connected, otherwise false
     private boolean isBacked;
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getHostName() {
+		return hostName;
+	}
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
+	public Map<String, Double> getDiskUsage() {
+		return diskUsage;
+	}
+	public void setDiskUsage(Map<String, Double> diskUsage) {
+		this.diskUsage = diskUsage;
+	}
+	public Map<String, Double> getInodeUsage() {
+		return inodeUsage;
+	}
+	public void setInodeUsage(Map<String, Double> inodeUsage) {
+		this.inodeUsage = inodeUsage;
+	}
+	public boolean isBacked() {
+		return isBacked;
+	}
+	public void setBacked(boolean isBacked) {
+		this.isBacked = isBacked;
+	}
+    
 }
