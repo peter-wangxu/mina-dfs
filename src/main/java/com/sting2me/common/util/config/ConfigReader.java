@@ -37,6 +37,24 @@ public class ConfigReader {
 		this.format = "properties";
 		
 	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
+	public IConfig getConfigStore() {
+		return configStore;
+	}
+	public void setConfigStore(IConfig configStore) {
+		this.configStore = configStore;
+	}
 	public String selectDefault() {
 		for(String path: DEFAULT_CONFIG_LOCATION) {
 			File file = new File(path);
@@ -61,21 +79,38 @@ public class ConfigReader {
 		Field[] fields = this.configStore.getClass().getDeclaredFields();
 		for(Field f: fields) {
 			//TODO extract property name from the field name 
+			ConfigProperties c = f.getAnnotation(ConfigProperties.class);
+			String key = null;
+			if (!c.prefix().equals("default")) {
+				key = c.prefix() + "." + c.name();
+			} else {
+				key = c.name();
+			}
+			try {
+				Object value = this.config.getProperty(key);
+				if (c.required() && null == value) {
+					logger.error("option[{}] is required, please specify in config file", key);
+				}
+				f.set(this.configStore, this.config.getProperty(key));
+			} catch (Exception e) {
+					logger.info("skipping option[{}]", key);
+			}
 		}
 		
 	}
+	/**
+	 * unit test 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ConfigReader reader = new ConfigReader();
-		Configuration config = null;
 		try {
-			String file = reader.selectDefault();
-			config = new PropertiesConfiguration(file);
-			
+			DataServerConfig data = new DataServerConfig();
+			reader.setConfigStore(data);
+			reader.load();
 		} catch (ConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(config.getInt("test"));
 	}
 }
  

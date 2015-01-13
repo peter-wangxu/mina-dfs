@@ -4,16 +4,23 @@
 package com.sting2me.common.util.config;
 
 /**
+ * Configuration entity mapped with data server
  * @author peter
  *
  */
 public class DataServerConfig implements IConfig {
 
-	private String 		nameServerIp;
-	private String 		backupServerIp;
-	private int			reportInterval;
-	private String 		domain;
-	private String[] 	partitions;
+	@ConfigProperties(name="name_server_ip", prefix="dataserver")
+	public String 		nameServerIp;
+	@ConfigProperties(name="backup_server_ip", prefix="dataserver")
+	public String 		backupServerIp;
+	@ConfigProperties(name="report_interval", prefix="dataserver")
+	public Integer		reportInterval;
+	@ConfigProperties(name="domain", prefix="dataserver")
+	public String 		domain;
+	@ConfigProperties(name="partitions", prefix="dataserver")
+	public String[] 	partitions;
+
 	public String getDomain() {
 		return domain;
 	}
@@ -32,10 +39,10 @@ public class DataServerConfig implements IConfig {
 	public void setBackupServerIp(String backupServerIp) {
 		this.backupServerIp = backupServerIp;
 	}
-	public int getReportInterval() {
+	public Integer getReportInterval() {
 		return reportInterval;
 	}
-	public void setReportInterval(int reportInterval) {
+	public void setReportInterval(Integer reportInterval) {
 		this.reportInterval = reportInterval;
 	}
 	public String[] getPartitions() {
