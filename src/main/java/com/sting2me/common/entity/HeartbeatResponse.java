@@ -6,6 +6,7 @@ package com.sting2me.common.entity;
 public class HeartbeatResponse {
 	/**
 	 * returned by Name Server to Data Server
+	 * can be 'success', 'fail'
 	 */
     private String status;
 

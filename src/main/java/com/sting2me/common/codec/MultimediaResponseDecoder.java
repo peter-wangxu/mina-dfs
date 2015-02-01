@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
  * Created by peter on 14-12-7.
  */
 public class MultimediaResponseDecoder extends CumulativeProtocolDecoder {
+    Logger logger = LoggerFactory.getLogger(this.getClass());
     //max path length of a file
     public static final int MAX_PATH_LENGTH = 255;
-    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {

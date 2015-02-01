@@ -14,7 +14,7 @@ public class HeartbeatRequest {
     private String hostName;
     // structure like below  "/dev/sdb1": 95.6, "/dev/sdc1": 60.0
     private Map<String, Double> diskUsage;
-    // report inode usage is needed as if inode is not enough, file cannot be stored
+    // report inode usage is needed,because if inode is not enough, file cannot be stored
     private Map<String, Double> inodeUsage;
     // true if there is a backup server connected, otherwise false
     private boolean isBacked;
@@ -47,6 +47,22 @@ public class HeartbeatRequest {
 	}
 	public void setBacked(boolean isBacked) {
 		this.isBacked = isBacked;
+	}
+	/**
+	 * total data length to be sent from data server to name server
+	 * @return
+	 */
+	public int totalLen() {
+		int n = 0;
+		n += this.ip.length();
+		n += this.hostName.length();
+		
+		for(String key: this.diskUsage.keySet()) {
+			n += key.length();
+			n += Double.SIZE;
+		}
+			
+		return n;
 	}
     
 }
