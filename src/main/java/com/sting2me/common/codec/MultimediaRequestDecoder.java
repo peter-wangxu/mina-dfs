@@ -48,6 +48,5 @@ public class MultimediaRequestDecoder extends CumulativeProtocolDecoder {
     }
 
     private static class DecoderState {
-        boolean fileReceived = false;
     }
 }

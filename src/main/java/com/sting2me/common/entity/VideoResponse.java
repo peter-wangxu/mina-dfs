@@ -6,4 +6,13 @@ package com.sting2me.common.entity;
 public class VideoResponse {
     //may contain http:// ftp:// prefix
     private String fullPath;
+
+	public String getFullPath() {
+		return fullPath;
+	}
+
+	public void setFullPath(String fullPath) {
+		this.fullPath = fullPath;
+	}
+    
 }

@@ -49,15 +49,27 @@ public class Client {
         if (file.exists()) {
             byte[] fileBytes = new byte[(int) file.length()];
             byte[] file2Bytes = new byte[(int) file2.length()];
+            FileInputStream inputStream = null;
+            FileInputStream inputStream2 = null;
             try {
-                FileInputStream inputStream = new FileInputStream(file);
-                FileInputStream inputStream2 = new FileInputStream(file2);
+            	inputStream = new FileInputStream(file);
+            	inputStream2 = new FileInputStream(file2);
                 inputStream.read(fileBytes);
                 inputStream2.read(file2Bytes);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+					try {
+						if (inputStream != null)
+							inputStream.close();
+						if (inputStream2 != null)
+		            		inputStream2.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
             }
             req.setFileData(fileBytes);
             req.setFileExtension("tar.gz");
