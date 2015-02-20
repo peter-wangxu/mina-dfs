@@ -3,8 +3,8 @@ mina-dfs
 
 A Distributed File Storage System Based on `Apache Mina <http://mina.apache.org/>`.
 
-mina-dfs is aimed at providing a distributed, highly availability file system. it is total based on Java. 
-while there will be several client implemented by other languange, such as C, python , NodeJS. every client can put file to the file system cluster.
+mina-dfs is aimed at providing a distributed, highly availability file system. it is built on Java. 
+While there will be several client implemented by other languages, such as C, Python , NodeJS. every client can put file to the file system cluster.
 and can fetch it with the returned URL.
  
 This Project main targets for small-middle enterprise infrastructure, it contains following components:

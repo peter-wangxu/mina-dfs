@@ -1,6 +1,8 @@
 package com.sting2me.dataserver;
 
+import com.sting2me.common.codec.HeartbeatCodecFactory;
 import com.sting2me.common.codec.MultimediaCodecFactory;
+
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ public class DataServer {
         acceptor.bind();
         logger.info("DataServer is listening at port " + PORT);
         //start Data Client to report statistics to Name Server
+        logger.info("DataServer is starting to report data at port 9931 ");
         StatisticReporter reporter = new StatisticReporter();
         reporter.start();
     }

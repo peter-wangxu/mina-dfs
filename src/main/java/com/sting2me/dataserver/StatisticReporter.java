@@ -3,13 +3,19 @@ package com.sting2me.dataserver;
 import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.future.ConnectFuture;
 import org.apache.mina.core.session.IoSession;
+import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.transport.socket.SocketConnector;
 import org.apache.mina.transport.socket.nio.NioSocketConnector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.sting2me.common.codec.HeartbeatCodecFactory;
+import com.sting2me.common.entity.HeartbeatRequest;
+
 import java.net.InetSocketAddress;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -48,7 +54,7 @@ public class StatisticReporter {
         // 获取过滤器链
         DefaultIoFilterChainBuilder filterChain = connector.getFilterChain();
         // 添加编码过滤器 处理乱码、编码问题
-        //filterChain.addLast("codec", new ProtocolCodecFilter(new MultimediaCodecFactory(true)));
+        filterChain.addLast("codec", new ProtocolCodecFilter(new HeartbeatCodecFactory(true)));
         // 消息核心处理器
         connector.setHandler(new StatisticIoHandler());
         // 连接服务器，知道端口、地址
@@ -66,10 +72,6 @@ public class StatisticReporter {
     }
 }
 
-class FakeStatistic {
-
-}
-
 class ReportTask extends TimerTask {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private IoSession session;
@@ -80,16 +82,28 @@ class ReportTask extends TimerTask {
         this.report = report;
     }
 
+    public  HeartbeatRequest getFakeRequest() {
+    	HeartbeatRequest request = new HeartbeatRequest();
+    	request.setIp("192.168.1.1");
+		request.setHostName("Peter-HOST");
+		Map<String, Double> disk= new HashMap<String, Double>(); 
+		disk.put("/dev/sda", 18.0D);
+		request.setDiskUsage(disk);
+		Map<String, Double> inode= new HashMap<String, Double>(); 
+		inode.put("/dev/sda", 18.0D);
+		request.setInodeUsage(inode);
+    	return request;
+    }
     @Override
     public void run() {
         //collect data and report to Name Server periodically
         try {
-            session.write(new FakeStatistic());
+            session.write(this.getFakeRequest());
         } catch (Exception ex) {
             //TODO need to sleep some time here?
             logger.warn("Trying to reconnect to data server...");
             this.session = this.report.reconnect();
-            this.session.write(new FakeStatistic());
+            this.session.write(this.getFakeRequest());
         } finally {
             logger.info("Data Server statistics sent successfully.");
         }

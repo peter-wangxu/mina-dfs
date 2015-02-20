@@ -1,5 +1,6 @@
 package com.sting2me.common.entity;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,7 +18,7 @@ public class HeartbeatRequest {
     // report inode usage is needed,because if inode is not enough, file cannot be stored
     private Map<String, Double> inodeUsage;
     // true if there is a backup server connected, otherwise false
-    private boolean isBacked;
+    private boolean isBacked = false;
 	public String getIp() {
 		return ip;
 	}
@@ -42,10 +43,10 @@ public class HeartbeatRequest {
 	public void setInodeUsage(Map<String, Double> inodeUsage) {
 		this.inodeUsage = inodeUsage;
 	}
-	public boolean isBacked() {
+	public boolean getIsBacked() {
 		return isBacked;
 	}
-	public void setBacked(boolean isBacked) {
+	public void setIsBacked(boolean isBacked) {
 		this.isBacked = isBacked;
 	}
 	/**
@@ -56,13 +57,63 @@ public class HeartbeatRequest {
 		int n = 0;
 		n += this.ip.length();
 		n += this.hostName.length();
-		
+		// isBacked
+		n += 1;
 		for(String key: this.diskUsage.keySet()) {
 			n += key.length();
 			n += Double.SIZE;
 		}
-			
+		for(String key: this.inodeUsage.keySet()) {
+			n += key.length();
+			n += Double.SIZE;
+		}
+		
 		return n;
 	}
+	
+	public static String toJSON(HeartbeatRequest heartbeat) {
+		StringBuffer json = new StringBuffer(100);
+		json.append("{\"ip\":");
+		json.append("\"" + heartbeat.ip + "\",");
+		json.append("\"hostname\":");
+		json.append("\"" + heartbeat.hostName + "\",");
+		json.append("\"diskUsage\":{");
+		int n = 0;
+		for (String key: heartbeat.getDiskUsage().keySet()) {
+			if (n < heartbeat.getDiskUsage().keySet().size()-1 ) {
+				json.append("\"" + key + "\":\""  + heartbeat.getDiskUsage().get(key) + "\",");
+			} else {
+				json.append("\"" + key + "\":\""  + heartbeat.getDiskUsage().get(key) + "\"");
+			}
+			n += 1;
+		}
+		json.append("}");
+		json.append("\"inodeUsage\":{");
+		n = 0;
+		for (String key: heartbeat.getDiskUsage().keySet()) {
+			if (n < heartbeat.getInodeUsage().keySet().size()-1 ) {
+				json.append("\"" + key + "\":\"" + heartbeat.getInodeUsage().get(key) + "\",");
+			} else {
+				json.append("\"" + key + "\":\"" + heartbeat.getInodeUsage().get(key) + "\"");
+			}
+			n += 1;
+		}
+		json.append("}");
+		json.append("\"isBacked\":\"" + heartbeat.getIsBacked() + "\"");
+		return json.toString();
+	}
     
+	public static HeartbeatRequest fromJSON(String json) {
+		HeartbeatRequest request = new HeartbeatRequest();
+		// TODO return fake data
+		request.setIp("192.168.1.1");
+		request.setHostName("Peter-HOST");
+		Map<String, Double> disk= new HashMap<String, Double>(); 
+		disk.put("/dev/sda", 18.0D);
+		request.setDiskUsage(disk);
+		Map<String, Double> inode= new HashMap<String, Double>(); 
+		inode.put("/dev/sda", 18.0D);
+		request.setInodeUsage(inode);
+		return request;
+	}
 }
