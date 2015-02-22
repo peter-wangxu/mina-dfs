@@ -4,11 +4,11 @@ package com.sting2me.common.entity;
  * Created by peter on 14-12-5.
  */
 public enum FileType {
-    ImageFile("Image"),
-    AudioFile("Audio"),
-    VideoFile("Video"),
-    TextFile("Text"),
-    Any("Any");
+    IMAGE("Image"),
+    AUDIO("Audio"),
+    VIDEO("Video"),
+    TEXT("Text"),
+    RAW("Raw");
     private String typeName;
 
     private FileType(String typeName) {

@@ -47,19 +47,19 @@ public class StatisticReporter {
 
     public IoSession connect(String host, int port) {
         SocketConnector connector;
-        // 创建一个socket连接
+        // 鍒涘缓涓�涓猻ocket杩炴帴
         connector = new NioSocketConnector();
-        // 设置链接超时时间
+        // 璁剧疆閾炬帴瓒呮椂鏃堕棿
         connector.setConnectTimeoutMillis(3000);
-        // 获取过滤器链
+        // 鑾峰彇杩囨护鍣ㄩ摼
         DefaultIoFilterChainBuilder filterChain = connector.getFilterChain();
-        // 添加编码过滤器 处理乱码、编码问题
+        // 娣诲姞缂栫爜杩囨护鍣� 澶勭悊涔辩爜銆佺紪鐮侀棶棰�
         filterChain.addLast("codec", new ProtocolCodecFilter(new HeartbeatCodecFactory(true)));
-        // 消息核心处理器
+        // 娑堟伅鏍稿績澶勭悊鍣�
         connector.setHandler(new StatisticIoHandler());
-        // 连接服务器，知道端口、地址
+        // 杩炴帴鏈嶅姟鍣紝鐭ラ亾绔彛銆佸湴鍧�
         ConnectFuture future = connector.connect(new InetSocketAddress(host, port));
-        // 等待连接创建完成
+        // 绛夊緟杩炴帴鍒涘缓瀹屾垚
         future.awaitUninterruptibly();
         return future.getSession();
     }
@@ -85,7 +85,7 @@ class ReportTask extends TimerTask {
     public  HeartbeatRequest getFakeRequest() {
     	HeartbeatRequest request = new HeartbeatRequest();
     	request.setIp("192.168.1.1");
-		request.setHostName("Peter-HOST");
+		request.setHostname("Peter-HOST");
 		Map<String, Double> disk= new HashMap<String, Double>(); 
 		disk.put("/dev/sda", 18.0D);
 		request.setDiskUsage(disk);

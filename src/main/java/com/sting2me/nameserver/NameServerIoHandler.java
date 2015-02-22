@@ -42,7 +42,7 @@ public class NameServerIoHandler extends IoHandlerAdapter {
     public void messageReceived(IoSession session, Object message) throws Exception {
         logger.info("Messsage received: " + session.getId());
         HeartbeatRequest request = (HeartbeatRequest) message;
-        logger.info("data: " + request.getHostName());
+        logger.info("data: " + request.getHostname());
     }
 
     @Override

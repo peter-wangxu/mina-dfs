@@ -28,7 +28,8 @@ public class HeartbeatRequestDecoder extends CumulativeProtocolDecoder {
 			int l = in.getInt();
 			byte [] data = new byte[l];
 			in.get(data, 0, l);
-			out.write(HeartbeatRequest.fromJSON(""));
+			
+			out.write(HeartbeatRequest.fromJSON(new String(data)));
 			return true;
 		}
 		return false;

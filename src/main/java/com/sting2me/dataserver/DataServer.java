@@ -1,6 +1,5 @@
 package com.sting2me.dataserver;
 
-import com.sting2me.common.codec.HeartbeatCodecFactory;
 import com.sting2me.common.codec.MultimediaCodecFactory;
 
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
